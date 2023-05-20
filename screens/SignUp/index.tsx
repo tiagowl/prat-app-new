@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { z } from "zod";
 import InputInvalidation from "../../components/InputValidation";
 import { createUserWithEmail } from "../../helpers/auth";
+import {getUser} from "../../api/user"
 // import { locale, timezone } from "../../locales";
 // import { getInitialLink } from "../../helpers/deeplink";
 
@@ -40,7 +41,14 @@ const SignUp = () => {
         }
         const {name, email, password} = validate.data;
 
-        const response = await createUserWithEmail(email, password);
+        const current = await getUser(email);
+        const isNewUser = !Boolean(current) || !Boolean(current.id)
+
+        if(isNewUser){
+            const response = await createUserWithEmail(email, password);
+        }
+
+        
 
         // const userPayload = {
         //     name: name.trim(),
@@ -53,6 +61,8 @@ const SignUp = () => {
         // }  
         
     }
+
+
 
     return(
         <Main>

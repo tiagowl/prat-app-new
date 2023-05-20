@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth'
-//import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage'
 import { isFuture } from 'date-fns'
-import axios from 'axios'
+import axios, { AxiosHeaders } from 'axios'
 import config from '../config'
 
 // Default axios config
@@ -10,35 +10,35 @@ axios.defaults.withCredentials = true
 const getHeaders = async () => {
   try {
     const user = auth().currentUser
-    // if (user) {
-    //   let token = null
-    //   const storageResult = await AsyncStorage.getItem('token')
-    //   const storageResultObject = JSON.parse(storageResult)
+     if (user) {
+       let token = null
+       const storageResult = await AsyncStorage.getItem('token')
+       const storageResultObject = JSON.parse(storageResult)
 
-    //   // Use saved token
-    //   if (
-    //     Boolean(storageResultObject) &&
-    //     Boolean(storageResultObject.expirationTime)
-    //   ) {
-    //     if (isFuture(new Date(storageResultObject.expirationTime))) {
-    //       token = storageResultObject.token
-    //     }
-    //   }
+       // Use saved token
+       if (
+         Boolean(storageResultObject) &&
+         Boolean(storageResultObject.expirationTime)
+       ) {
+         if (isFuture(new Date(storageResultObject.expirationTime))) {
+           token = storageResultObject.token
+         }
+       }
 
-    //   // Renew token
-    //   if (!Boolean(token)) {
-    //     const result = await user.getIdTokenResult(true)
-    //     await AsyncStorage.setItem('token', JSON.stringify(result))
-    //     token = result.token
-    //   }
+       // Renew token
+       if (!Boolean(token)) {
+         const result = await user.getIdTokenResult(true)
+         await AsyncStorage.setItem('token', JSON.stringify(result))
+         token = result.token
+       }
 
-    //   return {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${token}`
-    //   }
-    // } else {
-    //   return { 'Content-Type': 'application/json' }
-    // }
+       return {
+         'Content-Type': 'application/json',
+         'Authorization': `Bearer ${token}`
+       }
+     } else {
+       return { 'Content-Type': 'application/json' }
+     }
     return { 'Content-Type': 'application/json' }
   } catch {
     return { 'Content-Type': 'application/json' }
