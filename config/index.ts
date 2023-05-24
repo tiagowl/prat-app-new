@@ -1,7 +1,7 @@
 export default {
-    "enviroment": "development",
+    "enviroment": "production",
     "servers": {
-      "development": "192.168.100.4",
+      "development": "localhost",
       "production": "https://praticantes-api.rj.r.appspot.com"
     },
     "bundleId": "com.praticantes.app",

@@ -14,6 +14,8 @@ import {getUser} from "../../api/user"
 // import { locale, timezone } from "../../locales";
 // import { getInitialLink } from "../../helpers/deeplink";
 
+type SocialAuth = "google" | "facebook" | "apple";
+
 export const UserCreateSchema = z.object({
     name: z.string({
         required_error: "Nome não fornecido"
@@ -45,7 +47,7 @@ const SignUp = () => {
         const isNewUser = !Boolean(current) || !Boolean(current.id)
 
         if(isNewUser){
-            const response = await createUserWithEmail(email, password);
+             await createUserWithEmail(email, password);
         }
 
         
@@ -61,8 +63,6 @@ const SignUp = () => {
         // }  
         
     }
-
-
 
     return(
         <Main>
@@ -126,7 +126,7 @@ const SignUp = () => {
                 </ContentForm>
 
                 <SocialWrapper>
-                    <SocialButton color={colors.facebookBlue} >
+                    <SocialButton color={colors.facebookBlue}  >
                         <FontAwesome name={'facebook'} color={colors.white} size={26} />
                     </SocialButton>
                     <SocialButton color={colors.googleRed} >
