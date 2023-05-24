@@ -7,10 +7,13 @@
       "**/*"
     ],
     "android": {
-      "package": "com.anonymous.myapp"
+      "package": "com.anonymous.myapp",
+      "googleServicesFile": "./android/app/google-services.json"
     },
     "ios": {
-      "bundleIdentifier": "com.anonymous.myapp"
-    }
+      "bundleIdentifier": "com.anonymous.myapp",
+      "googleServicesFile": "./ios/praticantes/GoogleService-Info.plist"
+    },
+    "plugins": ["@react-native-google-signin/google-signin"]
   }
 }
